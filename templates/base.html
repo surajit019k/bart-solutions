@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/output.min.css' %}">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <title>home-madpick</title>
+</head>
+<body class="bg-gray-700">
+    {% include 'includes/messages.html' %}
+    {% include 'includes/header.html' %}
+    <img class="object-contain md:object-cover" src="https://i.pinimg.com/1200x/1f/2e/2b/1f2e2bce6685ed7b31eabe9707f68be9.jpg">
+    <img class="object-contain md:object-cover" src="https://i.pinimg.com/736x/68/fa/41/68fa411342c57e2d97adc6a385669bfb.jpg">
+    <img class="object-contain md:object-cover" src="https://i.pinimg.com/1200x/0b/28/a0/0b28a0260d4b36afb92b2c68ea65f4c9.jpg">
+</body>
+</html>
