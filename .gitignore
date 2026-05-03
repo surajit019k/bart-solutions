@@ -7,3 +7,6 @@ __pycache__/
 .env
 db.sqlite3
 node/
+node_modules/
+package-lock.json
+package.json

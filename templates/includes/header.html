@@ -1,15 +1,15 @@
-<header x-data="{ mobilenavOpen:false }" class="md:flex items-center justify-between [&>*]:px-8 bg-gray-800 h-20 text-white sticky top-0 z-50">
-    <div class="flex items-center justify-between h-20">
+{% load static %}
+<header x-data="{ mobilenavOpen:false }" class="md:flex items-center justify-between [&>*]:px-8 bg-gray-800 h-12 text-white sticky top-0 z-50">
+    <div class="flex items-center justify-between h-12">
     <logo>
         <a class="flex items-center gap-1 " href="">
-            <img class="h-12 -mt-1" src="https://img.icons8.com/badges/48/Eggman-robotnik.png" alt="logo"/>
+            <img class="h-6 w-10 h-10 -mt-1" src="https://img.icons8.com/badges/48/Eggman-robotnik.png" alt="logo"/>
         </a>
-        <span>madpick</span>
 
     </logo>    
     <mobileicon class="md:hidden">
         <a @click="mobilenavOpen =!mobilenavOpen" class="h-12 w-12 flex items-center justify-center cursor-pointer hover:bg-gray-700 rounded-lg">
-            <img x-show="!mobilenavOpen" class="w-10 h-10" src="https://img.icons8.com/ios-filled/50/777777/menu--v1.png" alt="menu--">
+            <img x-show="!mobilenavOpen" class="w-8 h-8" src="https://img.icons8.com/ios-filled/50/777777/menu--v1.png" alt="menu--">
             <img x-show="mobilenavOpen"  class="w-10 h-10" src="https://img.icons8.com/ios/50/777777/multiply.png" alt="delete--">
         </a>
     </mobileicon>
@@ -19,25 +19,29 @@
     x-transition:enter-start="opacity-0 -transition-y-96"
     x-transition:enter-end="opacity-100 -transition-y-0"
     >
-        <ul class="flex items-center navitems flex-col md:flex-row gap-8 md:gap-0 justify-center h-full -translate-y-10 md:translate-y-0">
-            <li><a href="/">On</a></li>
-            <li><a href="">Development</a></li>
-            <li x-data="{ dropdownOpen: false }" class="relative"><a @click="dropdownOpen = !dropdownOpen" @click.away="dropdownOpen = false" class="cursor-pointer select-none">
-                <img class="h-8 rounded-full bg-teal-200 object-cover" src="https://img.icons8.com/doodle/48/bart-simpson.png" alt="bart-simpson"/>
-                <span>bart</span>
-                <img x-bind:class="dropdownOpen ? 'rotate-180' : ''" class="w-4" src="https://img.icons8.com/ios/50/ffffff/expand-arrow--v2.png" alt="expand-arrow--v2"/></a>
-                <div x-show="dropdownOpen" x-cloak class="absolute right-0 bg-white text-black shadow rounded-lg w-40 p-2 z-20"
-                x-transition:enter="duration-300 ease-out"
-                x-transition:enter-start="opacity-0 -transition-y-5 scale-90"
-                x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-                >
-                    <ul class="hoverlist [&>li>a]:justify-end">
-                        <li><a href="">My Profile</a></li>
-                        <li><a href="">Edit Profile</a></li>
-                        <li><a href="">Logout</a></li>
-                    </ul>
-                </div>
-            </li>
+    <ul class="flex items-center navitems flex-col md:flex-row gap-8 md:gap-0 justify-center h-full -translate-y-10 md:translate-y-0">
+    {% if user.is_authenticated %}
+    
+        <li x-data="{ dropdownOpen: false }" class="relative"><a @click="dropdownOpen = !dropdownOpen" @click.away="dropdownOpen = false" class="cursor-pointer select-none">
+            <img class="h-8 rounded-full object-cover" src="{{ user.profile.image.url }}" alt=""/>
+            <span>{{ user.profile.realname }}</span>
+            <img x-bind:class="dropdownOpen ? 'rotate-180' : ''" class="w-4" src="https://img.icons8.com/ios/50/ffffff/expand-arrow--v2.png" alt="expand-arrow--v2"/></a>
+            <div x-show="dropdownOpen" x-cloak class="absolute right-0 bg-white text-black shadow rounded-lg w-40 p-2 z-20"
+            x-transition:enter="duration-300 ease-out"
+            x-transition:enter-start="opacity-0 -transition-y-5 scale-90"
+            x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+            >
+                <ul class="hoverlist [&>li>a]:justify-end">
+                    <li><a href="{% url 'view_profile' %}">My Profile</a></li>
+                    <li><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
+                    <li><a href="{% url 'account_logout' %}">Logout</a></li>
+                </ul>
+            </div>
+        </li>
+    {% else %}
+        <li><a href="{% url 'account_login' %}">login</a></li>
+        <li><a href="{% url 'account_signup' %}">sign up</a></li>
+    {% endif %}
         </ul>
     </nav>
 </header>

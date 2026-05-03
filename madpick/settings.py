@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 from environ import Env
 import dj_database_url
@@ -51,9 +52,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'mad_user',
+    'method_handler',
     "django_browser_reload",
+    "django_cleanup.apps.CleanupConfig",
 ]
+
+SITE_ID=1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -64,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
     "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
@@ -83,6 +93,10 @@ TEMPLATES = [
             ],
         },
     },
+]
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 WSGI_APPLICATION = 'madpick.wsgi.application'
@@ -136,6 +150,26 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 STATICFILES_DIRS=[BASE_DIR/"static",]
 STATIC_ROOT= BASE_DIR/"staticfiles"
+
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'home'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_LOGIN_METHODS = {"username","email"}
+
+ACCOUNT_SIGNUP_FIELDS = [
+    "email*",
+    "username*",
+    "password1*",
+    "password2*",
+]
+
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_USERNAME_BLACKLIST = ["admin", "administrator", "root", "superuser","account","accounts","user","users","staff","super","support","help","contact","profile","maduser","madpick"]

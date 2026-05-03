@@ -1,0 +1,70 @@
+{% extends 'layouts/base_entrance.html' %}
+{% load static%}
+{% block layouts %}
+<div class="max-w-sm mx-4 sm:mx-auto mt-2 bg-blue shadow-xl rounded-2xl overflow-hidden text-white transition-all hover:shadow-2xl hover:scale-105 select-none">
+    <span class="mb-2 m-2">Complete Your Profile</span>
+    
+    <div class="h-32 overflow-hidden">
+        <img class="object-cover w-full h-full" src="https://i.pinimg.com/originals/10/e2/0e/10e20e2bf4bc935f95ccc0a298608ef1.jpg" alt="">
+    </div>
+    <div class="relative w-24 h-24 mx-auto -mt-12 border-4 border-white rounded-full bg-sky-950/50 shadow-lg shadow-indigo-500/50 overflow-hidden">
+        <img class="object-cover w-full h-full" name="image" id="avatar" src="{{ user.profile.image.url }}" alt="Avatar">
+    </div>
+    <div class="text-center mt-4">
+        <h2 class="font-bold text-xl" id="realname">{{ user.profile.realname }}</h2>
+        <p class="text-gray-500 text-sm">@{{ user.username }}</p>
+    </div>
+    
+    <div>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- {{ form.as_p }} -->
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2"for="">Image:</label>
+                <input type="file" name="image">
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="">Name:</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline" type="text" id="id_realname" name="realname" value="{{ user.profile.realname }}">
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="">Email:</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline" type="text" id="id_email" name="email" value="{{ user.profile.email }}">
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="">Location:</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline" type="text" name="location" value="{{ user.profile.location }}">
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="">Bio:</label>
+                <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline bg-neutral-secondary-medium" name="bio">{{ user.profile.bio }}</textarea>
+            </div>
+            <div class="m-2">
+                <button class="bg-sky-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Save</button>
+                <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" >Skip</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+<script>
+    const fileInput=document.querySelector('input[type="file"]');
+    fileInput.addEventListener('change',(event)=>{
+        const file=event.target.files[0];
+        const image=document.querySelector('#avatar');
+        if (file && file.type.includes('image')){
+            const url=URL.createObjectURL(file);
+            image.src=url
+        }
+    });
+
+    const realnameInput=document.getElementById('id_realname');
+    const realnameOutput = document.getElementById('realname');
+
+    realnameInput.addEventListener('input', (event) => {
+    realnameOutput.innerText = event.target.value;
+    });
+</script>
+{% endblock %}

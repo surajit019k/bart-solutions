@@ -16,10 +16,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from blog.views import blog
+from django.conf import settings
+from django.conf.urls.static import static
+from method_handler.views import *
+from mad_user.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',blog),
+    path('accounts/', include('allauth.urls')),
+    path('',home,name='home'),
+    path('profile/view/',view_profile,name='view_profile'),
+    path('profile/edit/',edit_profile,name='edit_profile'),
+    path('profile/delete/',delete_profile,name='delete_profile'),
+    path('profile/onboarding/',edit_profile,name='profile-onboarding'),
+    path('account/login/',login,name='login'),
+    path('account/logout/',logout,name='logout'),
+    path('account/signup/',signup,name='signup'),
     path("__reload__/", include("django_browser_reload.urls")),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

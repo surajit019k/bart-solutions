@@ -1,0 +1,21 @@
+{% extends 'layouts/base_entrance.html' %}
+
+{% block layouts %}
+  <div class="flex items-center justify-center">
+    <div class="bg-white rounded p-2">
+      
+        <div class="h-22"><p>You are about to log out! Are you sure you want to logout?</p></div>
+        <div>
+            <ul class="flex  items-center">
+                <li>
+                <form method="POST">
+                {% csrf_token %}    
+                <button class="bg-sky-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit"> Yes, logout</button>
+                </form></li>
+                <a href="{% url 'home' %}"><li><button class="bg-sky-700 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded">Cancel</button></li></a>
+            </ul>  
+        </div>
+    </div>
+  </div>
+
+{% endblock %}
