@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 import os
 from pathlib import Path
-from environ import Env
+from environ import Env, ImproperlyConfigured
 import dj_database_url
 
 env=Env()
@@ -106,15 +106,19 @@ WSGI_APPLICATION = 'madpick.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'default': dj_database_url.parse(
-        os.environ.get("DATABASE_URL"),
+    'default': dj_database_url.config(
+        default=None,
         conn_max_age=600,
         ssl_require=True
     )
-    }
 }
 
+# Safety fallback (optional but helpful)
+if not DATABASES['default'] or not DATABASES['default'].get('ENGINE'):
+    raise ImproperlyConfigured(
+        "DATABASE_URL environment variable is empty or not set. "
+        "Check your Render Dashboard -> Environment settings."
+    )
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
