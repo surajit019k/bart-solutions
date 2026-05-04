@@ -112,8 +112,7 @@ DATABASES = {
     }
 }
 
-POSTGRES_LOCALLY=False
-if ENVIRONMENT=='production' or POSTGRES_LOCALLY==True:
+if ENVIRONMENT=='production':
     DATABASES['default']=dj_database_url.parse(env('DATABASE_URL'))
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -161,7 +160,6 @@ LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'home'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_LOGIN_METHODS = {"username","email"}
 
 ACCOUNT_SIGNUP_FIELDS = [
@@ -173,3 +171,16 @@ ACCOUNT_SIGNUP_FIELDS = [
 
 ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_USERNAME_BLACKLIST = ["admin", "administrator", "root", "superuser","account","accounts","user","users","staff","super","support","help","contact","profile","maduser","madpick"]
+
+
+if ENVIRONMENT=='production':
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST='smtp.gmail.com'
+    EMAIL_HOST_USER=env('EMAIL_ADDRESS')
+    EMAIL_HOST_PASSWORD=env('EMAIL_HOST_PASSWORD')
+    EMAIL_PORT=587
+    EMAIL_USE_TLS=True
+    DEFAULT_FROM_EMAIL=f'Bart-Solutions <{env("EMAIL_ADDRESS")}>'
+    ACCOUNT_EMAIL_SUBJECT_PREFIX=''
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
