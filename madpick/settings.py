@@ -38,7 +38,7 @@ if ENVIRONMENT == 'development':
 else:
     DEBUG = False
     # Only allow your specific Render domain in production
-    ALLOWED_HOSTS = ['bart-solutions.onrender.com']
+    ALLOWED_HOSTS = ['bart-solutions.onrender.com','127.0.0.1']
 
 
 # Application definition
