@@ -31,16 +31,14 @@ SECRET_KEY = env('SECRET_KEY')
 # ENCRYPT_KEY=env('ENCRYPT_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if ENVIRONMENT=='development':
+if ENVIRONMENT == 'development':
     DEBUG = True
+    ALLOWED_HOSTS = ['*']
+    INTERNAL_IPS = ['127.0.0.1']
 else:
     DEBUG = False
-
-ALLOWED_HOSTS = ['*']
-INTERNAL_IPS=(
-    '127.0.0.1',
-    'localhost:8000'
-)
+    # Only allow your specific Render domain in production
+    ALLOWED_HOSTS = ['bart-solutions.onrender.com']
 
 
 # Application definition
