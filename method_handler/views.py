@@ -45,6 +45,3 @@ def delete_profile(request):
         user.delete()
         return redirect('home')
     return render(request,'account/profile-delete.html')
-
-# def profile_verify_email(request):
-#     EmailAddress.objects.send_confirmation(request,request.user)
