@@ -3,7 +3,6 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from allauth.account.models import EmailAddress
 from django.contrib.auth import logout
-from django.contrib import messages
 from django.urls import reverse
 from mad_user.forms import *
 
@@ -23,11 +22,6 @@ def edit_profile(request):
             form=ProfileForm(request.POST, request.FILES,instance=request.user.profile)
             if form.is_valid():
                 form.save()
-
-                if request.user.emailaddress_set.get(primary=True).verified:
-                    return redirect('home')
-                else:
-                    return redirect('profile_verify_email')
             
         if request.path == reverse('profile-onboarding'):
             template='account/profile-onboarding.html'
@@ -43,5 +37,9 @@ def delete_profile(request):
     if request.method=='POST':
         logout(request)
         user.delete()
+
         return redirect('home')
     return render(request,'account/profile-delete.html')
+
+def message_show(request):
+    return render(request,'includes/messages.html')

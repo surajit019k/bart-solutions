@@ -2,7 +2,9 @@
 {% load static%}
 {% block layouts %}
 <div class="max-w-sm mx-4 sm:mx-auto mt-2 bg-blue shadow-xl rounded-2xl overflow-hidden text-white transition-all hover:shadow-2xl hover:scale-105 select-none">
-    <span class="mb-2 m-2">Edit Profile</span>
+    <span class="mb-2 m-2">Edit Profile|</span>
+    <span><a href="{% url 'home' %}" class="mx-2 hover:text-blue-700">Home|</a></span>
+    <span><a href="{% url 'delete_profile' %}" class="mx-2 text-red-500 hover:text-red-700">Delete Profile</a></span>
     
     <div class="h-32 overflow-hidden">
         <img class="object-cover w-full h-full" src="https://i.pinimg.com/originals/10/e2/0e/10e20e2bf4bc935f95ccc0a298608ef1.jpg" alt="">
@@ -41,11 +43,10 @@
             </div>
             <div class="m-2">
                 <button class="bg-sky-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Save</button>
-                <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" >Cancel</button>
+                
             </div>
         </form>
     </div>
-    <a href="{% url 'delete_profile' %}" class="mx-2 text-red-500 hover:text-red-700">Delete Profile</a>
 
 </div>
 
