@@ -1,6 +1,7 @@
 from django.http import Http404
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
+from allauth.account.utils import send_email_confirmation
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.urls import reverse
@@ -22,7 +23,11 @@ def edit_profile(request):
             form=ProfileForm(request.POST, request.FILES,instance=request.user.profile)
             if form.is_valid():
                 form.save()
-                return redirect('home')
+
+                if request.user.emailaddress_set.get(primary=True).verified:
+                    return redirect('home')
+                else:
+                    return redirect('profile_verify_email')
             
         if request.path == reverse('profile-onboarding'):
             template='account/profile-onboarding.html'
@@ -40,3 +45,6 @@ def delete_profile(request):
         user.delete()
         return redirect('home')
     return render(request,'account/profile-delete.html')
+
+def profile_verify_email(request):
+    send_email_confirmation(request,request.user)

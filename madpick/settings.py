@@ -104,21 +104,28 @@ WSGI_APPLICATION = 'madpick.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+if ENVIRONMENT=='development':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=None,
+            conn_max_age=600,
+            ssl_require=True
+        )
+    }
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=None,
-        conn_max_age=600,
-        ssl_require=True
-    )
-}
-
-# Safety fallback (optional but helpful)
-if not DATABASES['default'] or not DATABASES['default'].get('ENGINE'):
-    raise ImproperlyConfigured(
-        "DATABASE_URL environment variable is empty or not set. "
-        "Check your Render Dashboard -> Environment settings."
-    )
+    # Safety fallback (optional but helpful)
+    if not DATABASES['default'] or not DATABASES['default'].get('ENGINE'):
+        raise ImproperlyConfigured(
+            "DATABASE_URL environment variable is empty or not set. "
+            "Check your Render Dashboard -> Environment settings."
+        )
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
@@ -164,6 +171,7 @@ STATIC_ROOT= BASE_DIR/"staticfiles"
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'home'
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 
 ACCOUNT_LOGIN_METHODS = {"username","email"}
 
@@ -174,7 +182,6 @@ ACCOUNT_SIGNUP_FIELDS = [
     "password2*",
 ]
 
-ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_USERNAME_BLACKLIST = ["admin", "administrator", "root", "superuser","account","accounts","user","users","staff","super","support","help","contact","profile","maduser","madpick"]
 
 
