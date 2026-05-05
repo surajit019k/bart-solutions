@@ -40,6 +40,3 @@ def delete_profile(request):
 
         return redirect('home')
     return render(request,'account/profile-delete.html')
-
-def message_show(request):
-    return render(request,'includes/messages.html')
