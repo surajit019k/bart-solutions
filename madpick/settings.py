@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'mad_user',
     'method_handler',
-    # "django_browser_reload",
+    "django_browser_reload",
     "django_cleanup.apps.CleanupConfig",
 ]
 
@@ -72,7 +72,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "allauth.account.middleware.AccountMiddleware",
-    # "django_browser_reload.middleware.BrowserReloadMiddleware",
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
