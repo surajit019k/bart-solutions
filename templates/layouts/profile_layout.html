@@ -1,6 +1,9 @@
 {% extends 'layouts/base_entrance.html' %}
 {% block layouts %}
 <div class="max-w-sm mx-2 sm:mx-auto bg-blue shadow-xl rounded-1xl overflow-hidden text-white transition-all hover:shadow-2xl hover:scale-105 select-none">
+    <span><a href="{% url 'home' %}" class="mx-2 hover:text-blue-700">Home|</a></span>
+    <span><a href="{% url 'edit_profile' %}" class="mx-2 hover:text-blue-700">Edit Profile|</a></span>
+    
     <div class="h-32 overflow-hidden">
         <img class="object-cover w-full h-full" src="https://i.pinimg.com/originals/10/e2/0e/10e20e2bf4bc935f95ccc0a298608ef1.jpg" alt="">
     </div>
