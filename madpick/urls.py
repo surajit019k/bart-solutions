@@ -32,7 +32,6 @@ urlpatterns = [
     path('account/login/',login,name='login'),
     path('account/logout/',logout,name='logout'),
     path('account/signup/',signup,name='signup'),
-    path("__reload__/", include("django_browser_reload.urls")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
