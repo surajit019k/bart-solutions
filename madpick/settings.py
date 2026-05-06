@@ -49,9 +49,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'cloudinary_storage',
+    # 'cloudinary_storage',
     'django.contrib.staticfiles',
-    'cloudinary',
+    # 'cloudinary',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
@@ -159,22 +159,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT= BASE_DIR/"staticfiles"
 STATICFILES_DIRS=[BASE_DIR/"static",]
+STATIC_ROOT= BASE_DIR/"staticfiles"
 
 
 MEDIA_URL = '/media/'
-if ENVIRONMENT == 'production':
-    DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
-else:
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# if ENVIRONMENT == 'production':
+#     DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
+# else:
+#     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': env('CLOUD_NAME'),
-    'API_KEY': env('CLOUD_API_KEY'),
-    'API_SECRET': env('CLOUD_API_SECRET')
-}
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': env('CLOUD_NAME'),
+#     'API_KEY': env('CLOUD_API_KEY'),
+#     'API_SECRET': env('CLOUD_API_SECRET')
+# }
 
 
 LOGIN_REDIRECT_URL = '/'
