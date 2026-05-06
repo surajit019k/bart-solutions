@@ -49,9 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    # 'cloudinary_storage',
     'django.contrib.staticfiles',
-    # 'cloudinary',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
@@ -165,23 +163,12 @@ STATIC_ROOT= BASE_DIR/"staticfiles"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# if ENVIRONMENT == 'production':
-#     DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
-# else:
-#     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
-# CLOUDINARY_STORAGE = {
-#     'CLOUD_NAME': env('CLOUD_NAME'),
-#     'API_KEY': env('CLOUD_API_KEY'),
-#     'API_SECRET': env('CLOUD_API_SECRET')
-# }
 
 
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'home'
-ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 
 ACCOUNT_LOGIN_METHODS = {"username","email"}
 
