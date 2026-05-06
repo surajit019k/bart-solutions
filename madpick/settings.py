@@ -159,6 +159,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT= BASE_DIR/"staticfiles"
+STATICFILES_DIRS=[BASE_DIR/"static",]
+
+
 MEDIA_URL = '/media/'
 if ENVIRONMENT == 'production':
     DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
@@ -172,8 +176,6 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': env('CLOUD_API_SECRET')
 }
 
-STATICFILES_DIRS=[BASE_DIR/"static",]
-STATIC_ROOT= BASE_DIR/"staticfiles"
 
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
