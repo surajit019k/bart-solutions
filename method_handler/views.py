@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from allauth.account.models import EmailAddress
+from allauth.account.adapter import get_adapter
 from django.contrib.auth import logout
 from django.urls import reverse
 from mad_user.forms import *
@@ -40,3 +40,7 @@ def delete_profile(request):
 
         return redirect('home')
     return render(request,'account/profile-delete.html')
+
+def send_verification(request, user):
+    get_adapter(request).send_confirmation_mail(request, user, signup=True)
+    return redirect('home')
