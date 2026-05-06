@@ -1,0 +1,4 @@
+{% extends 'layouts/edit_layout.html' %}
+{% block avatar %}{{ user.profile.image.url }}{% endblock %}
+{% block realname %}{{ user.profile.realname }}{% endblock %}
+{% block username %}@{{ user.username }}{% endblock %}
