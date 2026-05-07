@@ -56,8 +56,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'mad_user',
     'method_handler',
-    'cloudinary',
-    'cloudinary_storage',
     "django_cleanup.apps.CleanupConfig",
 ]
 
@@ -75,14 +73,7 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware",
 ]
 
-STORAGES = {
-    "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 ROOT_URLCONF = 'madpick.urls'
 
 TEMPLATES = [
@@ -170,8 +161,8 @@ STATICFILES_DIRS=[BASE_DIR/"static",]
 STATIC_ROOT= BASE_DIR/"staticfiles"
 
 
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 LOGIN_REDIRECT_URL = '/'
@@ -201,9 +192,3 @@ if ENVIRONMENT=='production':
     ACCOUNT_EMAIL_SUBJECT_PREFIX=''
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-CLOUDINARY_STORAGE={
-    'CLOUD_NAME': env('CLOUD_NAME'),
-    'API_KEY': env('CLOUD_API_KEY'),
-    'API_SECRET': env('CLOUD_API_SECRET'),
-}
