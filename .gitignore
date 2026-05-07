@@ -1,6 +1,7 @@
 djenv/
 venv/
 node/
+media/
 __pycache__/
 .env
 db.sqlite3
