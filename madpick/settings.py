@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'mad_user',
     'method_handler',
+    'cloudinary_storage',
+    'cloudinary',
     "django_cleanup.apps.CleanupConfig",
 ]
 
@@ -73,7 +75,14 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware",
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 ROOT_URLCONF = 'madpick.urls'
 
 TEMPLATES = [
